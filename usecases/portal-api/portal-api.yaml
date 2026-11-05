@@ -8,7 +8,7 @@ spec:
     - name: kgw-gateway
       namespace: kgateway-system
   hostnames:
-    - kgw.kgw.lab.day0ops.com
+    - skygate.kgw.lab.day0ops.com
   rules:
     - backendRefs:
         - name: skygate
