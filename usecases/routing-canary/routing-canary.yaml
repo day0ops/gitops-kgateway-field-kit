@@ -5,7 +5,7 @@ metadata:
   namespace: routing-canary
 spec:
   parentRefs:
-    - name: kgw-gateway
+    - name: skygate-gateway
       namespace: kgateway-system
   hostnames:
     - skygate.kgw.lab.day0ops.com
