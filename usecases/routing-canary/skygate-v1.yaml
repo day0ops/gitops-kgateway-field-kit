@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skygate-v1
+  namespace: routing-canary
+  labels:
+    app: skygate-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: skygate-v1
+  template:
+    metadata:
+      labels:
+        app: skygate-v1
+    spec:
+      containers:
+        - name: skygate
+          image: skygate:dev
+          ports:
+            - name: http
+              containerPort: 8080
+            - name: grpc
+              containerPort: 9090
+          env:
+            - name: PORT
+              value: '8080'
+            - name: GRPC_PORT
+              value: '9090'
+            - name: VERSION
+              value: v1
+            - name: COLOR
+              value: blue
+            - name: CHAOS_PANIC_ENABLED
+              value: 'false'
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: skygate-v1
+  namespace: routing-canary
+  labels:
+    app: skygate-v1
+spec:
+  selector:
+    app: skygate-v1
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+    - name: grpc
+      port: 9090
+      targetPort: grpc

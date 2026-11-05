@@ -1,0 +1,19 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: routing-canary
+  namespace: routing-canary
+spec:
+  parentRefs:
+    - name: kgw-gateway
+      namespace: kgateway-system
+  hostnames:
+    - kgw.kgw.lab.day0ops.com
+  rules:
+    - backendRefs:
+        - name: skygate-v1
+          port: 8080
+          weight: 90
+        - name: skygate-v2
+          port: 8080
+          weight: 10
