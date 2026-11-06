@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: skygate
-          image: australia-southeast1-docker.pkg.dev/field-engineering-apac/kasunt/skygate:v0.1.0
+          image: australia-southeast1-docker.pkg.dev/field-engineering-apac/kasunt/skygate:v0.1.1
           ports:
             - name: http
               containerPort: 8080
