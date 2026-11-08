@@ -1,0 +1,71 @@
+apiVersion: portal.solo.io/v1alpha1
+kind: ApiDoc
+metadata:
+  name: skygate-flight-lookup-openapi
+  namespace: portal-api
+spec:
+  source:
+    manual:
+      rawString: |
+        openapi: 3.0.3
+        info:
+          title: Skygate Flight Lookup API
+          description: GetFlightStatus, exposed as REST via kgateway's gRPC-JSON transcoder - no native REST handler behind it.
+          version: v1
+        paths:
+          /v1/lookup/{flight_id}/status:
+            get:
+              operationId: getFlightStatus
+              parameters:
+                - name: flight_id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+              responses:
+                '200':
+                  description: Flight status
+                  content:
+                    application/json:
+                      schema:
+                        type: object
+                        properties:
+                          flight_id:
+                            type: string
+                          status:
+                            type: string
+                          delay_minutes:
+                            type: integer
+---
+apiVersion: portal.solo.io/v1alpha1
+kind: ApiProduct
+metadata:
+  name: portal-grpc-catalog-product
+  namespace: portal-api
+spec:
+  id: skygate-flight-lookup
+  displayName: Skygate Flight Lookup API (via gRPC transcoding)
+  versions:
+    - name: v1
+      targetRefs:
+        - group: gateway.networking.k8s.io
+          kind: HTTPRoute
+          name: routing-transcoding
+          apiDocSelectors:
+            - name: skygate-flight-lookup-openapi
+              namespace: portal-api
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: portal-grpc-catalog-product-access
+  namespace: portal-api
+spec:
+  from:
+    - group: portal.solo.io
+      kind: Portal
+      namespace: kgateway-system
+  to:
+    - group: portal.solo.io
+      kind: ApiProduct
+      name: portal-grpc-catalog-product
