@@ -36,7 +36,7 @@ spec:
   id: skygate-flights
   displayName: Skygate Flight Operations API
   customMetadata:
-    imageURL: /images/flight-operations.svg
+    imageURL: /images/flight-operations.webp
   versions:
     - name: v1
       targetRefs:
