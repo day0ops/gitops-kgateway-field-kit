@@ -6,7 +6,7 @@ metadata:
 spec:
   source:
     manual:
-      rawString: |
+      content: |
         openapi: 3.0.3
         info:
           title: Skygate Flight Lookup API
