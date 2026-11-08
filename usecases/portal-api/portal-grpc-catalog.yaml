@@ -36,6 +36,9 @@ spec:
                             type: string
                           delay_minutes:
                             type: integer
+  servedBy:
+    name: skygate
+    port: 9090
 ---
 apiVersion: portal.solo.io/v1alpha1
 kind: ApiProduct
