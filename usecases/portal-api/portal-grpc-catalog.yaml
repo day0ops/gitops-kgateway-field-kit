@@ -48,6 +48,8 @@ metadata:
 spec:
   id: skygate-flight-lookup
   displayName: Skygate Flight Lookup API (via gRPC transcoding)
+  customMetadata:
+    imageURL: /images/flight-lookup.svg
   versions:
     - name: v1
       targetRefs:
