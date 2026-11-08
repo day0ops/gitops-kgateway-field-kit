@@ -1,0 +1,40 @@
+apiVersion: ratelimit.solo.io/v1alpha1
+kind: RateLimitConfig
+metadata:
+  name: portal-rate-limit
+  namespace: portal-api
+spec:
+  raw:
+    setDescriptors:
+      - simpleDescriptors:
+          - key: generic_key
+            value: counter
+        rateLimit:
+          requestsPerUnit: 5
+          unit: MINUTE
+    rateLimits:
+      - setActions:
+          - genericKey:
+              descriptorValue: counter
+        limit:
+          dynamicMetadata:
+            metadataKey:
+              key: envoy.filters.http.ext_authz
+              path:
+                - key: portalApiKeyAuth
+                - key: rateLimit
+---
+apiVersion: enterprisekgateway.solo.io/v1alpha1
+kind: EnterpriseKgatewayTrafficPolicy
+metadata:
+  name: portal-rate-limit
+  namespace: portal-api
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: portal-api-public
+  entRateLimit:
+    global:
+      rateLimitConfigRefs:
+        - name: portal-rate-limit

@@ -1,0 +1,26 @@
+apiVersion: extauth.solo.io/v1
+kind: AuthConfig
+metadata:
+  name: portal-api-key-auth
+  namespace: portal-api
+spec:
+  configs:
+    - name: portalApiKeyAuth
+      portalAuth:
+        url: http://portal-dev-portal.kgateway-system.svc.cluster.local:8080
+        apiKey:
+          header: api-key
+---
+apiVersion: enterprisekgateway.solo.io/v1alpha1
+kind: EnterpriseKgatewayTrafficPolicy
+metadata:
+  name: portal-api-key-auth
+  namespace: portal-api
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: portal-api-public
+  entExtAuth:
+    authConfigRef:
+      name: portal-api-key-auth
