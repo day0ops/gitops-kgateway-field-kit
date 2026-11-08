@@ -23,7 +23,7 @@ spec:
               containerPort: 4000
           env:
             - name: VITE_PORTAL_SERVER_URL
-              value: /v1
+              value: https://dev-portal.kgw.lab.day0ops.com/v1
             - name: VITE_CLIENT_ID
               value: skygate-portal
             - name: VITE_AUTH_ENDPOINT
@@ -59,7 +59,7 @@ metadata:
   namespace: portal-api
 spec:
   parentRefs:
-    - name: portal-gateway
+    - name: skygate-gateway
       namespace: kgateway-system
   hostnames:
     - skygate-api-portal.kgw.lab.day0ops.com
