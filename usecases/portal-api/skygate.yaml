@@ -18,6 +18,7 @@ spec:
       containers:
         - name: skygate
           image: australia-southeast1-docker.pkg.dev/field-engineering-apac/kasunt/skygate:v0.3.0
+          imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 8080

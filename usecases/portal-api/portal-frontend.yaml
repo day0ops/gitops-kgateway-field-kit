@@ -17,7 +17,8 @@ spec:
     spec:
       containers:
         - name: portal-frontend
-          image: australia-southeast1-docker.pkg.dev/field-engineering-apac/kasunt/skygate-portal:v0.1.5
+          image: australia-southeast1-docker.pkg.dev/field-engineering-apac/kasunt/skygate-portal:v0.1.0
+          imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 4000
