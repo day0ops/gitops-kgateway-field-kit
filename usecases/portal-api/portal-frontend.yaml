@@ -62,7 +62,7 @@ spec:
     - name: portal-gateway
       namespace: kgateway-system
   hostnames:
-    - portal.kgw.lab.day0ops.com
+    - skygate-api-portal.kgw.lab.day0ops.com
   rules:
     - matches:
         - path:
