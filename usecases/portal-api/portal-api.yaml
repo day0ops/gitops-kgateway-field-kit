@@ -10,7 +10,17 @@ spec:
   hostnames:
     - skygate.kgw.lab.day0ops.com
   rules:
-    - backendRefs:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /v1
+      backendRefs:
         - name: skygate
           port: 8080
 ---
