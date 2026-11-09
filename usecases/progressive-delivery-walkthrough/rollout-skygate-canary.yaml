@@ -31,7 +31,7 @@ spec:
             - name: VERSION
               value: v1
             - name: COLOR
-              value: blue
+              value: green
           livenessProbe:
             httpGet:
               path: /healthz
