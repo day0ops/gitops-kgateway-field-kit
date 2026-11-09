@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: skygate-canary-stable
+  namespace: kgateway-system
+spec:
+  selector:
+    app: skygate-canary
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+    - name: grpc
+      port: 9090
+      targetPort: grpc
