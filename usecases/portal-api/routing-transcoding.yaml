@@ -44,3 +44,29 @@ spec:
       - skygate.lookup.v1.FlightLookupService
     autoMapping: true
     convertGrpcStatus: true
+---
+apiVersion: enterprisekgateway.solo.io/v1alpha1
+kind: EnterpriseKgatewayTrafficPolicy
+metadata:
+  name: routing-transcoding-cors
+  namespace: portal-api
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: routing-transcoding
+  cors:
+    allowOrigins:
+      - https://skygate-api-portal.kgw.lab.day0ops.com
+    allowMethods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - OPTIONS
+    allowHeaders:
+      - content-type
+      - authorization
+      - api-key
+    maxAge: 86400

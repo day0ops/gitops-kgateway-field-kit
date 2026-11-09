@@ -61,3 +61,29 @@ spec:
     - group: portal.solo.io
       kind: ApiProduct
       name: portal-api-product
+---
+apiVersion: enterprisekgateway.solo.io/v1alpha1
+kind: EnterpriseKgatewayTrafficPolicy
+metadata:
+  name: portal-api-cors
+  namespace: portal-api
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: portal-api-public
+  cors:
+    allowOrigins:
+      - https://skygate-api-portal.kgw.lab.day0ops.com
+    allowMethods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - OPTIONS
+    allowHeaders:
+      - content-type
+      - authorization
+      - api-key
+    maxAge: 86400
